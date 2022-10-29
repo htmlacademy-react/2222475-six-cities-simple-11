@@ -1,13 +1,26 @@
-import PlaceCard from '../../components/place-card/place-card';
 import {Link} from 'react-router-dom';
+import {useState} from 'react';
 import {AppRoute} from '../../const';
 import {Helmet} from 'react-helmet-async';
+import {Offers} from '../../types/offer';
+import OffersList from '../../components/offers-list/offers-list';
 
 type MainPageProps = {
   cardsCount: number;
+  offers: Offers;
 }
 
-function MainPage({cardsCount}: MainPageProps): JSX.Element {
+function MainPage({cardsCount, offers}: MainPageProps): JSX.Element {
+  const [hoverCardId, setHoverCardId] = useState(0);
+
+  const handleCardOver = (id: number) => {
+    setHoverCardId(id);
+  };
+
+  const handleCardOut = () => {
+    setHoverCardId(0);
+  };
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -91,20 +104,14 @@ function MainPage({cardsCount}: MainPageProps): JSX.Element {
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <ul className="places__options places__options--custom places__options--opened">
+                <ul className="places__options places__options--custom">
                   <li className="places__option places__option--active" tabIndex={0}>Popular</li>
                   <li className="places__option" tabIndex={0}>Price: low to high</li>
                   <li className="places__option" tabIndex={0}>Price: high to low</li>
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
-              </div>
+              <OffersList handleCardOver={(id: number)=>handleCardOver(id)} handleCardOut={handleCardOut} offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
