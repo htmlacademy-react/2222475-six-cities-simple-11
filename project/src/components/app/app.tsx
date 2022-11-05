@@ -5,11 +5,11 @@ import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import {Offers} from '../../types/offer';
+import {Offers as OffersType} from '../../types/offer';
 
 type AppScreenProps = {
   cardsCount: number;
-  offers: Offers;
+  offers: OffersType;
 }
 
 function App({cardsCount, offers}: AppScreenProps): JSX.Element {
