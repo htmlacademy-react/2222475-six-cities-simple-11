@@ -1,17 +1,25 @@
-import {Link} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import {useState} from 'react';
 import {AppRoute} from '../../const';
 import {Helmet} from 'react-helmet-async';
-import {Offers} from '../../types/offer';
+import {cities} from '../../mocks/cities';
+import {Offers as OffersType} from '../../types/offer';
+import {City} from '../../types/city';
 import OffersList from '../../components/offers-list/offers-list';
+import {offers as offersMock} from '../../mocks/offers';
+import Map from '../../components/map/map';
 
 type MainPageProps = {
   cardsCount: number;
-  offers: Offers;
+  offers: OffersType;
 }
+
+const defaultCityId = 4;
 
 function MainPage({cardsCount, offers}: MainPageProps): JSX.Element {
   const [hoverCardId, setHoverCardId] = useState(0);
+
+  const currentCity: City | undefined = cities.find((cityData) => cityData.id === defaultCityId);
 
   const handleCardOver = (id: number) => {
     setHoverCardId(id);
@@ -20,6 +28,10 @@ function MainPage({cardsCount, offers}: MainPageProps): JSX.Element {
   const handleCardOut = () => {
     setHoverCardId(0);
   };
+
+  if(!currentCity) {
+    return <Navigate to="/404" />;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -74,7 +86,7 @@ function MainPage({cardsCount, offers}: MainPageProps): JSX.Element {
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <a className="locations__item-link tabs__item tabs__item--active" href="/">
                   <span>Amsterdam</span>
                 </a>
               </li>
@@ -111,10 +123,10 @@ function MainPage({cardsCount, offers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList handleCardOver={(id: number)=>handleCardOver(id)} handleCardOut={handleCardOut} offers={offers}/>
+              <OffersList handleCardOver={(id: number)=>handleCardOver(id)} handleCardOut={handleCardOut} offers={offersMock}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map city={currentCity} offers={offersMock} hoverCardId={hoverCardId}/>
             </div>
           </div>
         </div>

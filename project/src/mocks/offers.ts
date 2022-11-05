@@ -1,6 +1,6 @@
-import {Offers} from '../types/offer';
+import {Offers as OffersType} from '../types/offer';
 
-export const offers: Offers = [
+export const offers: OffersType = [
   {
     id: 1,
     title: 'Beautiful & luxurious apartment at great location',
@@ -14,6 +14,10 @@ export const offers: Offers = [
       period: 'night'
     },
     rating: 4,
+    location: {
+      lat: 52.3909553943508,
+      lng: 4.85309666406198
+    }
   },
   {
     id: 2,
@@ -28,6 +32,10 @@ export const offers: Offers = [
       period: 'night'
     },
     rating: 4,
+    location: {
+      lat: 52.3609553943508,
+      lng: 4.85309666406198
+    }
   },
   {
     id: 3,
@@ -42,6 +50,10 @@ export const offers: Offers = [
       period: 'night'
     },
     rating: 4,
+    location: {
+      lat: 52.3909553943508,
+      lng: 4.929309666406198
+    }
   },
   {
     id: 4,
@@ -56,5 +68,9 @@ export const offers: Offers = [
       period: 'night'
     },
     rating: 5,
+    location: {
+      lat: 52.3809553943508,
+      lng: 4.939309666406198
+    }
   },
 ];

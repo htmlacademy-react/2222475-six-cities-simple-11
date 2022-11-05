@@ -7,6 +7,11 @@ export interface Price {
   period: string;
 }
 
+export interface Location {
+  lat: number;
+  lng: number;
+}
+
 export interface Offer {
   id: number;
   title: string;
@@ -15,6 +20,7 @@ export interface Offer {
   mainPicture: MainPicture;
   price: Price;
   rating: number;
+  location: Location;
 }
 
 export type Offers = Offer[];
