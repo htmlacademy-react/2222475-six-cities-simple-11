@@ -3,7 +3,7 @@ import {Link, useParams, Navigate} from 'react-router-dom';
 
 import {Helmet} from 'react-helmet-async';
 import {offers} from '../../mocks/offers';
-import {Offer} from '../../types/offer';
+import {Offer as OfferType} from '../../types/offer';
 import CommentForm from '../../components/comment-form/comment-form';
 
 function OfferPage(): JSX.Element {
@@ -14,7 +14,7 @@ function OfferPage(): JSX.Element {
   }
 
   const id = Number(params.id);
-  const offer: Offer | undefined = offers.find((offerData) => offerData.id === id);
+  const offer: OfferType | undefined = offers.find((offerData) => offerData.id === id);
 
   if(!offer) {
     return <Navigate to="/404" />;

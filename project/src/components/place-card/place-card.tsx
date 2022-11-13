@@ -1,8 +1,8 @@
-import {Offer} from '../../types/offer';
+import {Offer as OfferType} from '../../types/offer';
 import {Link} from 'react-router-dom';
 
 type OfferProps = {
-  offer: Offer;
+  offer: OfferType;
   handleCardOver: (id: number) => void;
   handleCardOut: () => void;
 }
