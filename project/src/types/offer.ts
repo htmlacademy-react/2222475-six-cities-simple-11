@@ -14,6 +14,7 @@ export interface Location {
 
 export interface Offer {
   id: number;
+  cityId: number;
   title: string;
   type: string;
   premium: boolean;
