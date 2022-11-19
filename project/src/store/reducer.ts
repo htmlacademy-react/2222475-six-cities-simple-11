@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {changeCity, fetchOffers, hoverCard} from './action';
-import {DEFAULT_CITY_ID} from '../const';
+import {CITIES} from '../const';
 import {offers as offersMock} from '../mocks/offers';
 import {State as StateType} from '../types/state';
 
@@ -10,19 +10,20 @@ const initialState: StateType = {
     fetched: false,
   },
   hoverCardId: 0,
-  cityId: DEFAULT_CITY_ID,
+  city: CITIES[0]
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       const {cityId} = action.payload;
-      state.cityId = cityId;
-      state.offers.items = offersMock.filter((offer) => offer.cityId === state.cityId);
+
+      state.city = CITIES.find((cityData) => cityData.id === cityId) || CITIES[0];
+      state.offers.items = offersMock.filter((offer) => offer.cityId === cityId);
     })
     .addCase(fetchOffers, (state) => {
       if(!state.offers.fetched) {
-        state.offers.items = offersMock.filter((offer) => offer.cityId === state.cityId);
+        state.offers.items = offersMock.filter((offer) => offer.cityId === state.city.id);
         state.offers.fetched = true;
       }
     })

@@ -1,5 +1,6 @@
 import {store} from '../store';
 import {Offers as OffersType} from './offer';
+import {City} from './city';
 
 export interface StateOffer {
   items: OffersType;
@@ -9,7 +10,7 @@ export interface StateOffer {
 export type State = {
   offers: StateOffer;
   hoverCardId: number;
-  cityId: number;
+  city: City;
 }
 
 export type AppDispatch = typeof store.dispatch;
