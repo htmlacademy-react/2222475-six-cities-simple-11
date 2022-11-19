@@ -1,17 +1,19 @@
 import {Offer as OfferType} from '../../types/offer';
 import {Link} from 'react-router-dom';
+import {useAppDispatch} from '../../hooks';
+import {hoverCard} from '../../store/action';
 
 type OfferProps = {
   offer: OfferType;
-  handleCardOver: (id: number) => void;
-  handleCardOut: () => void;
 }
 
-function PlaceCard({offer, handleCardOver, handleCardOut}: OfferProps): JSX.Element {
-  const ratingPercent: number = offer.rating * 20;
+function PlaceCard({offer}: OfferProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const ratingPercent: number = Math.round(offer.rating) * 20;
 
   return (
-    <article className="cities__card place-card" onMouseEnter={() => handleCardOver(offer.id)} onMouseLeave={handleCardOut}>
+    <article className="cities__card place-card" onMouseEnter={() => dispatch(hoverCard({id: offer.id}))} onMouseLeave={() => dispatch(hoverCard({id: 0}))}>
       {
         offer.premium &&
         <div className="place-card__mark">
@@ -20,7 +22,7 @@ function PlaceCard({offer, handleCardOver, handleCardOut}: OfferProps): JSX.Elem
       }
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${offer.id}`}>
-          <img className="place-card__image" src={offer.mainPicture.src} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={offer.mainPicture.src} width="260" height="200" alt="Place"/>
         </Link>
       </div>
       <div className="place-card__info">
