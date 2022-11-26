@@ -15,15 +15,12 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   async (_arg, {getState, dispatch, extra: api}) => {
     const {city, offers} = getState();
     const offersFetched = offers.fetched;
-    const isFetchedOffersRun = useRef(false);
-    if (!offersFetched && !isFetchedOffersRun.current) {
-      isFetchedOffersRun.current = true;
+    if (!offersFetched) {
       dispatch(setOffersDataLoadingStatus(true));
       let {data} = await api.get<Offers>(APIRoute.Offers);
       data = data.filter((offer) => offer.city.name === city.title);
       dispatch(setOffersDataLoadingStatus(false));
       dispatch(loadOffers(data));
-      isFetchedOffersRun.current = false;
     }
   },
 );
