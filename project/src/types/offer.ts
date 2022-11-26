@@ -1,27 +1,41 @@
-export interface MainPicture {
-  src: string;
+export interface Host {
+  avatarUrl: string;
+  id: number;
+  isPro: boolean;
+  name: string;
 }
 
-export interface Price {
-  cost: number;
-  period: string;
+export interface OfferCity {
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  name: string;
 }
 
 export interface Location {
-  lat: number;
-  lng: number;
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
 export interface Offer {
+  bedrooms: number;
+  city: OfferCity;
+  description: string;
+  goods: [string];
+  host: Host;
   id: number;
-  cityId: number;
+  images: [string];
+  isPremium: boolean;
+  location: Location;
+  maxAdults: number;
+  previewImage: string;
+  price: number;
+  rating: number;
   title: string;
   type: string;
-  premium: boolean;
-  mainPicture: MainPicture;
-  price: Price;
-  rating: number;
-  location: Location;
 }
 
 export type Offers = Offer[];

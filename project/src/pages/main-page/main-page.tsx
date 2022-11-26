@@ -1,15 +1,10 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {Helmet} from 'react-helmet-async';
-import {useAppDispatch} from '../../hooks';
-import {fetchOffers} from '../../store/action';
 import OffersList from '../../components/offers-list/offers-list';
 import CitiesList from '../../components/cities-list/cities-list';
 
 function MainPage(): JSX.Element {
-  const dispatch = useAppDispatch();
-  dispatch(fetchOffers());
-
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -20,7 +15,7 @@ function MainPage(): JSX.Element {
           <div className="header__wrapper">
             <div className="header__left">
               <Link className="header__logo-link header__logo-link--active" to={AppRoute.Main}>
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </Link>
             </div>
             <nav className="header__nav">

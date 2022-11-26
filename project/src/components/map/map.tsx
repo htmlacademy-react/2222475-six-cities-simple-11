@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react';
-import leaflet from 'leaflet';
+import leaflet, {Layer} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map/use-map';
 import {Offer as OfferType} from '../../types/offer';
@@ -33,19 +33,28 @@ function Map() {
         map.flyTo([city.lat, city.lng], city.zoom);
         setCurrentCityId(city.id);
       }
-
+      const markerList: Layer[] = [];
       offers.forEach((offer: OfferType) => {
-        leaflet
+        const marker = leaflet
           .marker({
-            lat: offer.location.lat,
-            lng: offer.location.lng,
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
           }, {
             icon: (offer.id === hoverCardId)
               ? currentCustomIcon
               : defaultCustomIcon,
-          })
-          .addTo(map);
+          });
+        markerList.push(marker);
+        map.addLayer(marker);
       });
+
+      return () => {
+        if(markerList.length) {
+          markerList.forEach((marker) => {
+            map.removeLayer(marker);
+          });
+        }
+      };
     }
   }, [map, offers, hoverCardId, city]);
 
