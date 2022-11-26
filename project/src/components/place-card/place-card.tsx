@@ -15,21 +15,21 @@ function PlaceCard({offer}: OfferProps): JSX.Element {
   return (
     <article className="cities__card place-card" onMouseEnter={() => dispatch(hoverCard({id: offer.id}))} onMouseLeave={() => dispatch(hoverCard({id: 0}))}>
       {
-        offer.premium &&
+        offer.isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${offer.id}`}>
-          <img className="place-card__image" src={offer.mainPicture.src} width="260" height="200" alt="Place"/>
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
         </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{offer.price.cost}</b>
-            <span className="place-card__price-text">&#47;&nbsp;{offer.price.period}</span>
+            <b className="place-card__price-value">&euro;{offer.price}</b>
+            <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
         </div>
         <div className="place-card__rating rating">
