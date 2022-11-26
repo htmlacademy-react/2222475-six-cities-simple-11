@@ -14,12 +14,12 @@ const initialState: StateType = {
   offers: {
     items: [],
     fetched: false,
-    loading: false
+    loading: true
   },
   hoverCardId: 0,
   offer: {
     data: null,
-    loading: false
+    loading: true
   }
 };
 
@@ -46,6 +46,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffer, (state, action) => {
       state.offer.data = action.payload;
+      state.offer.loading = false;
     });
 });
 

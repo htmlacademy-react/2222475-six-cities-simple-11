@@ -3,8 +3,18 @@ import {AppRoute} from '../../const';
 import {Helmet} from 'react-helmet-async';
 import OffersList from '../../components/offers-list/offers-list';
 import CitiesList from '../../components/cities-list/cities-list';
+import {useEffect} from 'react';
+import {store} from '../../store';
+import {fetchOffersAction} from '../../store/api-actions';
+import {useAppSelector} from '../../hooks';
 
 function MainPage(): JSX.Element {
+  const city = useAppSelector((state) => state.city);
+
+  useEffect(() => {
+    store.dispatch(fetchOffersAction());
+  }, [city]);
+
   return (
     <div className="page page--gray page--main">
       <Helmet>

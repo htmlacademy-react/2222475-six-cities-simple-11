@@ -2,18 +2,11 @@ import PlaceCard from '../place-card/place-card';
 import {useAppSelector} from '../../hooks';
 import PlacesFound from '../places-found/places-found';
 import Map from '../map/map';
-import {fetchOffersAction} from '../../store/api-actions';
-import {useEffect} from 'react';
-import {store} from '../../store';
 
 function OffersList(): JSX.Element {
   const offers = useAppSelector((state) => state.offers.items);
   const city = useAppSelector((state) => state.city);
   const isOffersDataLoading = useAppSelector((state) => state.offers.loading);
-
-  useEffect(() => {
-    store.dispatch(fetchOffersAction());
-  }, [city]);
 
   if (isOffersDataLoading) {
     return (

@@ -4,21 +4,19 @@ import cn from 'classnames';
 
 import {Helmet} from 'react-helmet-async';
 import CommentForm from '../../components/comment-form/comment-form';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppSelector} from '../../hooks';
 import {fetchOfferAction} from '../../store/api-actions';
+import {useEffect} from 'react';
+import {store} from '../../store';
 
 function OfferPage(): JSX.Element {
   const params = useParams();
-  const dispatch = useAppDispatch();
   const offer = useAppSelector((state) => state.offer);
-
-  if (!params.id) {
-    return <Navigate to='/404'/>;
-  }
-
   const offerId = Number(params.id);
 
-  dispatch(fetchOfferAction(offerId));
+  useEffect(() => {
+    store.dispatch(fetchOfferAction(offerId));
+  }, []);
 
   if (offer.loading) {
     return (

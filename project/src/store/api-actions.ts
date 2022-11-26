@@ -4,7 +4,6 @@ import {AppDispatch, State} from '../types/state';
 import {Offers, Offer} from '../types/offer';
 import {loadOffer, loadOffers, setOfferDataLoadingStatus, setOffersDataLoadingStatus} from './action';
 import {APIRoute} from '../const';
-import {useRef} from 'react';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -19,8 +18,8 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
       dispatch(setOffersDataLoadingStatus(true));
       let {data} = await api.get<Offers>(APIRoute.Offers);
       data = data.filter((offer) => offer.city.name === city.title);
-      dispatch(setOffersDataLoadingStatus(false));
       dispatch(loadOffers(data));
+      dispatch(setOffersDataLoadingStatus(false));
     }
   },
 );
@@ -33,15 +32,11 @@ export const fetchOfferAction = createAsyncThunk<void, number, {
   'offer/fetchOffer',
   async (offerId: number, {getState, dispatch, extra: api}) => {
     const {offer} = getState();
-    const isFetchedOfferRun = useRef(false);
 
-    if ((!offer.data || (offer.data && offerId !== offer.data.id)) && !isFetchedOfferRun.current) {
-      isFetchedOfferRun.current = true;
+    if ((!offer.data || (offer.data && offerId !== offer.data.id))) {
       dispatch(setOfferDataLoadingStatus(true));
       const {data} = await api.get<Offer>(APIRoute.Offer.replace(':offerId', String(offerId)));
-      dispatch(setOfferDataLoadingStatus(false));
       dispatch(loadOffer(data));
-      isFetchedOfferRun.current = false;
     }
   },
 );
