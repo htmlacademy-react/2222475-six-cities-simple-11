@@ -1,5 +1,4 @@
-import {AppRoute} from '../../const';
-import {Link, useParams, Navigate} from 'react-router-dom';
+import {useParams, Navigate} from 'react-router-dom';
 import cn from 'classnames';
 
 import {Helmet} from 'react-helmet-async';
@@ -20,38 +19,7 @@ function OfferPage(): JSX.Element {
 
   if (offer.loading) {
     return (
-      <div className="page">
-        <Helmet>
-          <title>Предложение</title>
-        </Helmet>
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <Link className="header__logo-link" to={AppRoute.Main}>
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-                </Link>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <div className="header__nav-profile">
-                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </div>
-                  </li>
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="/">
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
-        <main className="page__main page__main--property loader"></main>
-      </div>
+      <main className="page__main page__main--property loader"></main>
     );
   } else {
     if (!offer.data) {
@@ -61,37 +29,10 @@ function OfferPage(): JSX.Element {
     const ratingPercent: number = offer.data.rating * 20;
 
     return (
-      <div className="page">
+      <>
         <Helmet>
-          <title>Предложение</title>
+          <title>{offer.data.title}</title>
         </Helmet>
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <Link className="header__logo-link" to={AppRoute.Main}>
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-                </Link>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <div className="header__nav-profile">
-                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </div>
-                  </li>
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="/">
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
-
         <main className="page__main page__main--property">
           <section className="property">
             {
@@ -287,7 +228,7 @@ function OfferPage(): JSX.Element {
             </section>
           </div>
         </main>
-      </div>
+      </>
     );
   }
 }

@@ -1,6 +1,8 @@
 import {store} from '../store';
 import {Offers as OffersType, Offer as OfferType} from './offer';
 import {City} from './city';
+import {AuthorizationStatus} from '../const';
+import {UserData} from './user-data';
 
 type Nullable<T> = T | null;
 
@@ -20,6 +22,8 @@ export type State = {
   hoverCardId: number;
   city: City;
   offer: StateOffer;
+  authorizationStatus: AuthorizationStatus;
+  user: UserData;
 }
 
 export type AppDispatch = typeof store.dispatch;
