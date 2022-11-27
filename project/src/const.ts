@@ -77,3 +77,5 @@ export const CITIES: Cities = [
     zoom: START_ZOOM,
   },
 ];
+
+export const PASSWORD_VALID_ERROR = 'Password must contain at least one letter and one number';

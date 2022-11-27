@@ -1,29 +1,43 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus, PASSWORD_VALID_ERROR} from '../../const';
 import {Helmet} from 'react-helmet-async';
 import {FormEvent, useRef} from 'react';
-import {useAppDispatch} from '../../hooks';
+import {useNavigate} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthData} from '../../types/auth-data';
 import {loginAction} from '../../store/api-actions';
+import {toast} from 'react-toastify';
 
 function LoginPage(): JSX.Element {
+  const currentAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
   };
 
+  if(currentAuthorizationStatus === AuthorizationStatus.Auth) {
+    navigate(AppRoute.Main);
+  }
+
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      });
+      const password = passwordRef.current.value;
+
+      if(!password.match(/\d/g) || !password.match(/[a-zA-Z]/g)) {
+        toast.error(PASSWORD_VALID_ERROR);
+      }
+      else {
+        onSubmit({
+          login: loginRef.current.value,
+          password: passwordRef.current.value,
+        });
+      }
     }
   };
 

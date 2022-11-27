@@ -5,12 +5,11 @@ import {Offers, Offer} from '../types/offer';
 import {
   loadOffer,
   loadOffers,
-  redirectToRoute,
   setAuthorization,
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus
 } from './action';
-import {APIRoute, AppRoute, AuthorizationStatus} from '../const';
+import {APIRoute, AuthorizationStatus} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {dropToken, saveToken} from '../services/token';
@@ -77,7 +76,6 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     const {data: {token, email: userEmail, avatarUrl}} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(token);
     dispatch(setAuthorization({ AuthorizationStatus: AuthorizationStatus.Auth, email: userEmail, avatarUrl: avatarUrl }));
-    dispatch(redirectToRoute(AppRoute.Main));
   },
 );
 
