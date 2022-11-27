@@ -2,11 +2,11 @@ import {createReducer} from '@reduxjs/toolkit';
 import {
   changeCity,
   hoverCard, loadOffer,
-  loadOffers,
+  loadOffers, setAuthorization,
   setOfferDataLoadingStatus,
   setOffersDataLoadingStatus
 } from './action';
-import {CITIES} from '../const';
+import {AuthorizationStatus, CITIES} from '../const';
 import {State as StateType} from '../types/state';
 
 const initialState: StateType = {
@@ -20,6 +20,13 @@ const initialState: StateType = {
   offer: {
     data: null,
     loading: true
+  },
+  authorizationStatus: AuthorizationStatus.Unknown,
+  user: {
+    id: 0,
+    email: '',
+    avatarUrl: '../img/avatar.svg',
+    token: ''
   }
 };
 
@@ -47,6 +54,12 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadOffer, (state, action) => {
       state.offer.data = action.payload;
       state.offer.loading = false;
+    })
+    .addCase(setAuthorization, (state, action) => {
+      const { AuthorizationStatus: AuthorizationStatusValue, email, avatarUrl } = action.payload;
+      state.authorizationStatus = AuthorizationStatusValue;
+      state.user.email = email || '';
+      state.user.avatarUrl = avatarUrl || '';
     });
 });
 

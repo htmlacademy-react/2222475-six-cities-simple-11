@@ -6,6 +6,13 @@ export enum AppRoute {
   Room = '/offer/:id',
 }
 
+export enum AppRouteClass {
+  Main = 'page--gray page--main',
+  Login = 'page--gray page--login',
+  Room = '',
+  Other = 'page--gray page--login',
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
