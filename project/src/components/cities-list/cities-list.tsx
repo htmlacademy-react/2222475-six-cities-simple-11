@@ -2,11 +2,12 @@ import cn from 'classnames';
 import React from 'react';
 import {CITIES} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeCity} from '../../store/action';
+import {changeCity} from '../../store/offer-data/offer-data';
+import {getCity} from '../../store/offer-data/selectors';
 
 function CitiesList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(getCity);
 
   const handleChangeCity = (e: React.MouseEvent<HTMLAnchorElement>, cityId: number) => {
     e.preventDefault();

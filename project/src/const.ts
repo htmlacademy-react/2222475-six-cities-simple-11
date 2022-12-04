@@ -13,6 +13,11 @@ export enum AppRouteClass {
   Other = 'page--gray page--login',
 }
 
+export enum NameSpace {
+  Offer = 'OFFER',
+  User = 'USER',
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

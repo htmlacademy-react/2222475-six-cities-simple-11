@@ -4,3 +4,10 @@ export type UserData = {
   avatarUrl: string;
   token: string;
 };
+
+export const UserDataInitialState: UserData = {
+  id: 0,
+  email: '',
+  avatarUrl: '../img/avatar.svg',
+  token: ''
+};

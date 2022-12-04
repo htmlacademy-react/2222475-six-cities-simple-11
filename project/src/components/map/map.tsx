@@ -5,12 +5,13 @@ import useMap from '../../hooks/use-map/use-map';
 import {Offer as OfferType} from '../../types/offer';
 import {URL_MARKER_DEFAULT, URL_MARKER_ACTIVE} from '../../const';
 import {useAppSelector} from '../../hooks';
+import {getCity, getHoverCardId, getOffers} from '../../store/offer-data/selectors';
 
 
 function Map() {
-  const hoverCardId = useAppSelector((state) => state.hoverCardId);
-  const offers = useAppSelector((state) => state.offers.items);
-  const city = useAppSelector((state) => state.city);
+  const hoverCardId = useAppSelector(getHoverCardId);
+  const offers = useAppSelector(getOffers);
+  const city = useAppSelector(getCity);
   const mapRef: React.MutableRefObject<null> = useRef(null);
   const [currentCityId, setCurrentCityId] = useState<number>(city.id);
   const map = useMap(mapRef, city);

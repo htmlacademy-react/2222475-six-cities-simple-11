@@ -7,9 +7,10 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthData} from '../../types/auth-data';
 import {loginAction} from '../../store/api-actions';
 import {toast} from 'react-toastify';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 function LoginPage(): JSX.Element {
-  const currentAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const currentAuthorizationStatus = useAppSelector(getAuthorizationStatus);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
