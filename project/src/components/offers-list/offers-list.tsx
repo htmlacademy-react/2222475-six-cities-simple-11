@@ -2,11 +2,12 @@ import PlaceCard from '../place-card/place-card';
 import {useAppSelector} from '../../hooks';
 import PlacesFound from '../places-found/places-found';
 import Map from '../map/map';
+import {getCity, getOffers, getOffersLoadingStatus} from '../../store/offer-data/selectors';
 
 function OffersList(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers.items);
-  const city = useAppSelector((state) => state.city);
-  const isOffersDataLoading = useAppSelector((state) => state.offers.loading);
+  const offers = useAppSelector(getOffers);
+  const city = useAppSelector(getCity);
+  const isOffersDataLoading = useAppSelector(getOffersLoadingStatus);
 
   if (isOffersDataLoading) {
     return (
