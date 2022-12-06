@@ -4,11 +4,12 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Link} from 'react-router-dom';
 import {logoutAction} from '../../store/api-actions';
 import CSS from 'csstype';
+import {getAuthorizationStatus, getUser} from '../../store/user-process/selectors';
 
 function HeaderUser(): JSX.Element {
-  const currentAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const currentAuthorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector(getUser);
 
   const handleLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();

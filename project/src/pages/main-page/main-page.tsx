@@ -5,9 +5,10 @@ import {useEffect} from 'react';
 import {store} from '../../store';
 import {fetchOffersAction} from '../../store/api-actions';
 import {useAppSelector} from '../../hooks';
+import {getCity} from '../../store/offer-data/selectors';
 
 function MainPage(): JSX.Element {
-  const city = useAppSelector((state) => state.city);
+  const city = useAppSelector(getCity);
 
   useEffect(() => {
     store.dispatch(fetchOffersAction());

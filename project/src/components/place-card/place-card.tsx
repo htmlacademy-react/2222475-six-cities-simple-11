@@ -1,7 +1,7 @@
 import {Offer as OfferType} from '../../types/offer';
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks';
-import {hoverCard} from '../../store/action';
+import {hoverCard} from '../../store/offer-data/offer-data';
 
 type OfferProps = {
   offer: OfferType;
