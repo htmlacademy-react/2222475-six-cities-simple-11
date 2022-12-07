@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CITIES, NameSpace} from '../../const';
 import {OfferData as OfferDataType} from '../../types/state';
-import {fetchOffersAction} from '../api-actions';
+import {fetchOffersAction, fetchReviewsAction, fetchOffersNearbyAction} from '../api-actions';
 import {fetchOfferAction} from '../api-actions';
 import {toast} from 'react-toastify';
 
@@ -14,6 +14,14 @@ const initialState: OfferDataType = {
   },
   offer: {
     data: null,
+    loading: true
+  },
+  offerComments: {
+    items: [],
+    loading: true
+  },
+  offersNearby: {
+    items: [],
     loading: true
   },
   hoverCardId: 0,
@@ -58,6 +66,22 @@ export const offerData = createSlice({
       .addCase(fetchOfferAction.rejected, (state) => {
         state.offer.loading = false;
         toast.error('Offer loading error. Try later');
+      })
+      .addCase(fetchReviewsAction.pending, (state) => {
+        state.offerComments.items = [];
+        state.offerComments.loading = true;
+      })
+      .addCase(fetchReviewsAction.fulfilled, (state, action) => {
+        state.offerComments.items = action.payload;
+        state.offerComments.loading = false;
+      })
+      .addCase(fetchOffersNearbyAction.pending, (state) => {
+        state.offersNearby.items = [];
+        state.offersNearby.loading = true;
+      })
+      .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
+        state.offersNearby.items = action.payload;
+        state.offersNearby.loading = false;
       });
   }
 });

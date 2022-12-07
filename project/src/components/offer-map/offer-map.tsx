@@ -1,24 +1,24 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect} from 'react';
 import leaflet, {Layer} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map/use-map';
 import {Offer as OfferType} from '../../types/offer';
 import {URL_MARKER_DEFAULT, URL_MARKER_ACTIVE} from '../../const';
 import {useAppSelector} from '../../hooks';
-import {getCity, getHoverCardId, getOffers} from '../../store/offer-data/selectors';
+import {getOffersNearby} from '../../store/offer-data/selectors';
 import {Place as PlaceType} from '../../types/city';
 
+type OfferMapProps = {
+  offer: OfferType;
+}
 
-function Map() {
-  const hoverCardId = useAppSelector(getHoverCardId);
-  const offers = useAppSelector(getOffers);
-  const city = useAppSelector(getCity);
+function OfferMap({offer}: OfferMapProps): JSX.Element {
+  const offersNearby = useAppSelector(getOffersNearby);
   const mapRef: React.MutableRefObject<null> = useRef(null);
-  const [currentCityId, setCurrentCityId] = useState<number>(city.id);
   const place: PlaceType = {
-    lat: city.lat,
-    lng: city.lng,
-    zoom: city.zoom
+    lat: offer.location.latitude,
+    lng: offer.location.longitude,
+    zoom: offer.location.zoom - 2
   };
   const map = useMap(mapRef, place);
 
@@ -36,40 +36,45 @@ function Map() {
 
   useEffect(() => {
     if (map) {
-      if(city.id !== currentCityId) {
-        map.flyTo([city.lat, city.lng], city.zoom);
-        setCurrentCityId(city.id);
-      }
       const markerList: Layer[] = [];
-      offers.forEach((offer: OfferType) => {
+
+      const mainMarker = leaflet
+        .marker({
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
+        }, {
+          icon: currentCustomIcon,
+        });
+      markerList.push(mainMarker);
+      map.addLayer(mainMarker);
+
+      offersNearby.forEach((offerNearby: OfferType) => {
         const marker = leaflet
           .marker({
-            lat: offer.location.latitude,
-            lng: offer.location.longitude,
+            lat: offerNearby.location.latitude,
+            lng: offerNearby.location.longitude,
           }, {
-            icon: (offer.id === hoverCardId)
-              ? currentCustomIcon
-              : defaultCustomIcon,
+            icon: defaultCustomIcon,
           });
         markerList.push(marker);
         map.addLayer(marker);
       });
 
       return () => {
-        if(markerList.length) {
+        if (markerList.length) {
           markerList.forEach((marker) => {
             map.removeLayer(marker);
           });
         }
       };
     }
-  }, [map, offers, hoverCardId, city]);
+  }, [map, offersNearby]);
 
 
   return (
-    <section className="cities__map map" ref={mapRef}>
+    <section className="property__map map" ref={mapRef}>
     </section>
   );
 }
 
-export default Map;
+export default OfferMap;
