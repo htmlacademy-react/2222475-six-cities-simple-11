@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {CITIES, NameSpace} from '../../const';
+import {CITIES, DEFAULT_SORTING, NameSpace, SortCodes} from '../../const';
 import {OfferData as OfferDataType} from '../../types/state';
 import {fetchOffersAction, fetchReviewsAction, fetchOffersNearbyAction} from '../api-actions';
 import {fetchOfferAction} from '../api-actions';
@@ -10,7 +10,8 @@ const initialState: OfferDataType = {
   offers: {
     items: [],
     fetched: false,
-    loading: true
+    loading: true,
+    sort: SortCodes.Popular
   },
   offer: {
     data: null,
@@ -39,12 +40,64 @@ export const offerData = createSlice({
     hoverCard: (state, action: PayloadAction<{id: number}>) => {
       const {id} = action.payload;
       state.hoverCardId = id;
-    }
+    },
+    sortOffers: (state, action: PayloadAction<{sortCode: SortCodes}>) => {
+      const {sortCode} = action.payload;
+      if(sortCode !== state.offers.sort) {
+        state.offers.sort = sortCode;
+        switch(sortCode) {
+          case SortCodes.priceToHigh:
+            state.offers.items.sort((a, b) => {
+              if (a.price > b.price) {
+                return 1;
+              }
+              if (a.price < b.price) {
+                return -1;
+              }
+              return 0;
+            });
+            break;
+          case SortCodes.priceToLow:
+            state.offers.items.sort((a, b) => {
+              if (a.price > b.price) {
+                return -1;
+              }
+              if (a.price < b.price) {
+                return 1;
+              }
+              return 0;
+            });
+            break;
+          case SortCodes.topRated:
+            state.offers.items.sort((a, b) => {
+              if (a.rating > b.rating) {
+                return -1;
+              }
+              if (a.rating < b.rating) {
+                return 1;
+              }
+              return 0;
+            });
+            break;
+          default:
+            state.offers.items.sort((a, b) => {
+              if (a.id > b.id) {
+                return 1;
+              }
+              if (a.id < b.id) {
+                return -1;
+              }
+              return 0;
+            });
+        }
+      }
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.offers.loading = true;
+        state.offers.sort = DEFAULT_SORTING;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         const data = action.payload;
@@ -86,4 +139,4 @@ export const offerData = createSlice({
   }
 });
 
-export const {changeCity, hoverCard} = offerData.actions;
+export const {changeCity, hoverCard, sortOffers} = offerData.actions;

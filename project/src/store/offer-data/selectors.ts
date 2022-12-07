@@ -1,4 +1,4 @@
-import {NameSpace} from '../../const';
+import {DEFAULT_SORTING, NameSpace, SortCodes} from '../../const';
 import {Nullable, State} from '../../types/state';
 import {Offer, Offers} from '../../types/offer';
 import {City} from '../../types/city';
@@ -13,3 +13,4 @@ export const getCity = (state: State): City => state[NameSpace.Offer].city;
 export const getHoverCardId = (state: State): number => state[NameSpace.Offer].hoverCardId;
 export const getComments = (state: State): Comments => state[NameSpace.Offer].offerComments.items;
 export const getOffersNearby = (state: State): Offers => state[NameSpace.Offer].offersNearby.items;
+export const getSortOffers = (state: State): SortCodes => state[NameSpace.Offer].offers.sort || DEFAULT_SORTING;
