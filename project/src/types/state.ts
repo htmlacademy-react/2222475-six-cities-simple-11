@@ -1,5 +1,6 @@
 import {store} from '../store';
 import {Offers as OffersType, Offer as OfferType} from './offer';
+import {Comments as CommentsType} from './comment';
 import {City} from './city';
 import {AuthorizationStatus} from '../const';
 import {UserData} from './user-data';
@@ -8,7 +9,12 @@ export type Nullable<T> = T | null;
 
 export interface StateOffers {
   items: OffersType;
-  fetched: boolean;
+  fetched?: boolean;
+  loading: boolean;
+}
+
+export interface StateOfferComments {
+  items: CommentsType;
   loading: boolean;
 }
 
@@ -20,6 +26,8 @@ export interface StateOffer {
 export type OfferData = {
   offers: StateOffers;
   offer: StateOffer;
+  offerComments: StateOfferComments;
+  offersNearby: StateOffers;
   hoverCardId: number;
   city: City;
 }
