@@ -7,6 +7,7 @@ import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {setUser} from './user-process/user-process';
 import {dropToken, saveToken} from '../services/token';
+import {Comments} from '../types/comment';
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
   dispatch: AppDispatch;
@@ -28,6 +29,30 @@ export const fetchOfferAction = createAsyncThunk<Offer, number, {
   'offer/fetchOffer',
   async (offerId: number, {extra: api}) => {
     const {data} = await api.get<Offer>(APIRoute.Offer.replace(':offerId', String(offerId)));
+    return data;
+  },
+);
+
+export const fetchReviewsAction = createAsyncThunk<Comments, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offer/fetchReviews',
+  async (offerId: number, {extra: api}) => {
+    const {data} = await api.get<Comments>(APIRoute.Comments.replace(':offerId', String(offerId)));
+    return data;
+  },
+);
+
+export const fetchOffersNearbyAction = createAsyncThunk<Offers, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offer/fetchOffersNearby',
+  async (offerId: number, {extra: api}) => {
+    const {data} = await api.get<Offers>(APIRoute.NearbyOffers.replace(':offerId', String(offerId)));
     return data;
   },
 );

@@ -6,4 +6,10 @@ export interface City {
   zoom: number;
 }
 
+export interface Place {
+  lat: number;
+  lng: number;
+  zoom: number;
+}
+
 export type Cities = City[];
