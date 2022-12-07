@@ -1,3 +1,5 @@
+import {SortCodes} from '../const';
+
 export interface Host {
   avatarUrl: string;
   id: number;
@@ -39,3 +41,10 @@ export interface Offer {
 }
 
 export type Offers = Offer[];
+
+export interface Sort {
+  code: SortCodes;
+  name: string;
+}
+
+export type Sorts = Sort[];

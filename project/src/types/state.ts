@@ -2,7 +2,7 @@ import {store} from '../store';
 import {Offers as OffersType, Offer as OfferType} from './offer';
 import {Comments as CommentsType} from './comment';
 import {City} from './city';
-import {AuthorizationStatus} from '../const';
+import {AuthorizationStatus, SortCodes} from '../const';
 import {UserData} from './user-data';
 
 export type Nullable<T> = T | null;
@@ -11,6 +11,7 @@ export interface StateOffers {
   items: OffersType;
   fetched?: boolean;
   loading: boolean;
+  sort?: SortCodes;
 }
 
 export interface StateOfferComments {

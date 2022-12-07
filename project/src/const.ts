@@ -1,4 +1,5 @@
 import {Cities} from './types/city';
+import {Sorts} from './types/offer';
 
 export enum AppRoute {
   Main = '/',
@@ -80,6 +81,35 @@ export const CITIES: Cities = [
     lat: 51.225402,
     lng: 6.776314,
     zoom: START_ZOOM,
+  },
+];
+
+
+export enum SortCodes {
+  Popular = 'POPULAR',
+  priceToHigh = 'PRICE_TO_HIGH',
+  priceToLow = 'PRICE_TO_LOW',
+  topRated = 'TOP_RATED',
+}
+
+export const DEFAULT_SORTING = SortCodes.Popular;
+
+export const SortTypes: Sorts = [
+  {
+    code: SortCodes.Popular,
+    name: 'Popular',
+  },
+  {
+    code: SortCodes.priceToHigh,
+    name: 'Price: low to high',
+  },
+  {
+    code: SortCodes.priceToLow,
+    name: 'Price: high to low',
+  },
+  {
+    code: SortCodes.topRated,
+    name: 'Top rated first',
   },
 ];
 
