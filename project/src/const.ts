@@ -17,6 +17,7 @@ export enum AppRouteClass {
 export enum NameSpace {
   Offer = 'OFFER',
   User = 'USER',
+  Comment = 'COMMENT',
 }
 
 export enum AuthorizationStatus {

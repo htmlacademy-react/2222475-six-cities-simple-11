@@ -2,7 +2,7 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
 import {Offers, Offer} from '../types/offer';
-import {APIRoute} from '../const';
+import {APIRoute, NameSpace} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {setUser} from './user-process/user-process';
@@ -91,5 +91,18 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
+  },
+);
+
+export const sendCommentAction = createAsyncThunk<Comments, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offer/sendCommentAction',
+  async (offerId, {getState, extra: api}) => {
+    const comment = getState()[NameSpace.Comment].comment;
+    const {data} = await api.post<Comments>(APIRoute.Comments.replace(':offerId', String(offerId)), {comment: comment.comment, rating: comment.rating});
+    return data;
   },
 );
