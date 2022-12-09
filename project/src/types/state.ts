@@ -27,10 +27,20 @@ export interface StateOffer {
 export type OfferData = {
   offers: StateOffers;
   offer: StateOffer;
-  offerComments: StateOfferComments;
   offersNearby: StateOffers;
   hoverCardId: number;
   city: City;
+}
+
+export interface StateComment {
+  rating: number;
+  comment: string;
+  posting: boolean;
+}
+
+export type CommentsData = {
+  offerComments: StateOfferComments;
+  comment: StateComment;
 }
 
 export type UserProcess = {

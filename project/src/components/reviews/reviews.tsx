@@ -3,7 +3,7 @@ import CommentForm from '../comment-form/comment-form';
 import {store} from '../../store';
 import {fetchReviewsAction} from '../../store/api-actions';
 import {useAppSelector} from '../../hooks';
-import {getComments} from '../../store/offer-data/selectors';
+import {getComments} from '../../store/comment-data/selectors';
 import Review from '../review/review';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {AuthorizationStatus} from '../../const';
@@ -33,7 +33,7 @@ function Reviews({offerId}: ReviewsProps): JSX.Element {
       }
       {
         currentAuthorizationStatus === AuthorizationStatus.Auth &&
-        <CommentForm/>
+        <CommentForm offerId={offerId}/>
       }
     </section>
   );
