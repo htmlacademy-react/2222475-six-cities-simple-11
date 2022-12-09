@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CITIES, DEFAULT_SORTING, NameSpace, SortCodes} from '../../const';
 import {OfferData as OfferDataType} from '../../types/state';
-import {fetchOffersAction, fetchReviewsAction, fetchOffersNearbyAction} from '../api-actions';
+import {fetchOffersAction, fetchOffersNearbyAction} from '../api-actions';
 import {fetchOfferAction} from '../api-actions';
 import {toast} from 'react-toastify';
 
@@ -15,10 +15,6 @@ const initialState: OfferDataType = {
   },
   offer: {
     data: null,
-    loading: true
-  },
-  offerComments: {
-    items: [],
     loading: true
   },
   offersNearby: {
@@ -119,14 +115,6 @@ export const offerData = createSlice({
       .addCase(fetchOfferAction.rejected, (state) => {
         state.offer.loading = false;
         toast.error('Offer loading error. Try later');
-      })
-      .addCase(fetchReviewsAction.pending, (state) => {
-        state.offerComments.items = [];
-        state.offerComments.loading = true;
-      })
-      .addCase(fetchReviewsAction.fulfilled, (state, action) => {
-        state.offerComments.items = action.payload;
-        state.offerComments.loading = false;
       })
       .addCase(fetchOffersNearbyAction.pending, (state) => {
         state.offersNearby.items = [];
