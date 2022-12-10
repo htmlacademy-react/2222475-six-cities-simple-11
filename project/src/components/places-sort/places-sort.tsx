@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import cn from 'classnames';
-import {SortCodes, SortTypes} from '../../const';
+import {SortCodes, SORT_TYPES} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {sortOffers} from '../../store/offer-data/offer-data';
 import {getSortOffers} from '../../store/offer-data/selectors';
@@ -10,7 +10,7 @@ function PlacesSort() {
   const currentSortCode = useAppSelector(getSortOffers);
   const [openPopup, setOpenPopup] = useState(false);
 
-  const currentSort = SortTypes.find((sortType) => sortType.code === currentSortCode) || SortTypes[0];
+  const currentSort = SORT_TYPES.find((sortType) => sortType.code === currentSortCode) || SORT_TYPES[0];
 
   const handleChangeSort = (evt: React.MouseEvent<HTMLLIElement, MouseEvent>, sortCode: SortCodes) => {
     evt.preventDefault();
@@ -28,7 +28,7 @@ function PlacesSort() {
         </svg>
       </span>
       <ul className={cn('places__options', 'places__options--custom', {'places__options--opened': openPopup})}>
-        {SortTypes.map((sortType) => (
+        {SORT_TYPES.map((sortType) => (
           <li
             key={sortType.code}
             className={cn('places__option', {'places__option--active': sortType.code === currentSortCode})}

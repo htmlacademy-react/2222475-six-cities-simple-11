@@ -9,6 +9,7 @@ import {getOffer, getOfferLoadingStatus} from '../../store/offer-data/selectors'
 import Reviews from '../../components/reviews/reviews';
 import OffersNearby from '../../components/offers-nearby/offers-nearby';
 import OfferMap from '../../components/offer-map/offer-map';
+import {ROOM_TYPE} from '../../const';
 
 function OfferPage(): JSX.Element {
   const params = useParams();
@@ -17,7 +18,15 @@ function OfferPage(): JSX.Element {
   const offerId = Number(params.id);
 
   useEffect(() => {
-    store.dispatch(fetchOfferAction(offerId));
+    let isMounted = true;
+
+    if (isMounted) {
+      store.dispatch(fetchOfferAction(offerId));
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [offerId]);
 
   if (offerLoading) {
@@ -30,6 +39,7 @@ function OfferPage(): JSX.Element {
     }
 
     const ratingPercent: number = offer.rating * 20;
+    const offerType: string = ROOM_TYPE[offer.type as keyof typeof ROOM_TYPE] || '';
 
     return (
       <>
@@ -69,7 +79,7 @@ function OfferPage(): JSX.Element {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {offer.type}
+                    {offerType}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
                     {offer.bedrooms} Bedroom{offer.bedrooms > 1 ? 's' : ''}

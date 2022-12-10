@@ -17,7 +17,15 @@ function Reviews({offerId}: ReviewsProps): JSX.Element {
   const currentAuthorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
-    store.dispatch(fetchReviewsAction(offerId));
+    let isMounted = true;
+
+    if (isMounted) {
+      store.dispatch(fetchReviewsAction(offerId));
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [offerId]);
 
   return (
