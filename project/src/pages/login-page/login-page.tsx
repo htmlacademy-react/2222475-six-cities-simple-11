@@ -1,27 +1,32 @@
-import {Link} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus, PASSWORD_VALID_ERROR} from '../../const';
+import {Link, Navigate, useNavigate} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus, CITIES, PASSWORD_VALID_ERROR} from '../../const';
 import {Helmet} from 'react-helmet-async';
-import {FormEvent, useRef} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, {FormEvent, useRef} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthData} from '../../types/auth-data';
 import {loginAction} from '../../store/api-actions';
 import {toast} from 'react-toastify';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {changeCity} from '../../store/offer-data/offer-data';
+import {getCity} from '../../store/offer-data/selectors';
 
 function LoginPage(): JSX.Element {
   const currentAuthorizationStatus = useAppSelector(getAuthorizationStatus);
+  const currentCity = useAppSelector(getCity);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const randomCityIndex = Math.floor(Math.random() * 6);
+  const randomCity = CITIES[randomCityIndex];
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
   };
 
   if(currentAuthorizationStatus === AuthorizationStatus.Auth) {
-    navigate(AppRoute.Main);
+    return <Navigate to={AppRoute.Main}/>;
   }
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -40,6 +45,14 @@ function LoginPage(): JSX.Element {
         });
       }
     }
+  };
+
+  const handleChangeCity = (e: React.MouseEvent<HTMLAnchorElement>, cityId: number) => {
+    e.preventDefault();
+    if(cityId !== currentCity.id) {
+      dispatch(changeCity({cityId}));
+    }
+    navigate(AppRoute.Main);
   };
 
   return (
@@ -77,8 +90,8 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/">
-                <span>Amsterdam</span>
+              <a className="locations__item-link" onClick={(e) => handleChangeCity(e,randomCity.id)} href="/">
+                <span>{randomCity.title}</span>
               </a>
             </div>
           </section>

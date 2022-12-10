@@ -14,7 +14,15 @@ function OffersNearby({offerId}: NearbyProps): JSX.Element {
   const offers = useAppSelector(getOffersNearby);
 
   useEffect(() => {
-    store.dispatch(fetchOffersNearbyAction(offerId));
+    let isMounted = true;
+
+    if (isMounted) {
+      store.dispatch(fetchOffersNearbyAction(offerId));
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [offerId]);
 
   return (

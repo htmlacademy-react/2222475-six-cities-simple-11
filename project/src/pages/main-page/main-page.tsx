@@ -11,7 +11,15 @@ function MainPage(): JSX.Element {
   const city = useAppSelector(getCity);
 
   useEffect(() => {
-    store.dispatch(fetchOffersAction());
+    let isMounted = true;
+
+    if (isMounted) {
+      store.dispatch(fetchOffersAction());
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [city]);
 
   return (

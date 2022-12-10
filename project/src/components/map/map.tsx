@@ -63,7 +63,7 @@ function Map() {
         }
       };
     }
-  }, [map, offers, hoverCardId, city]);
+  }, [map, offers, hoverCardId, city, currentCityId, currentCustomIcon, defaultCustomIcon]);
 
 
   return (

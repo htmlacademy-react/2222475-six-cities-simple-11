@@ -42,7 +42,7 @@ export const offerData = createSlice({
       if(sortCode !== state.offers.sort) {
         state.offers.sort = sortCode;
         switch(sortCode) {
-          case SortCodes.priceToHigh:
+          case SortCodes.PriceToHigh:
             state.offers.items.sort((a, b) => {
               if (a.price > b.price) {
                 return 1;
@@ -53,7 +53,7 @@ export const offerData = createSlice({
               return 0;
             });
             break;
-          case SortCodes.priceToLow:
+          case SortCodes.PriceToLow:
             state.offers.items.sort((a, b) => {
               if (a.price > b.price) {
                 return -1;
@@ -64,7 +64,7 @@ export const offerData = createSlice({
               return 0;
             });
             break;
-          case SortCodes.topRated:
+          case SortCodes.TopRated:
             state.offers.items.sort((a, b) => {
               if (a.rating > b.rating) {
                 return -1;
