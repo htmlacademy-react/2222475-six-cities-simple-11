@@ -1,18 +1,14 @@
 import React from 'react';
 import {Link, Outlet, useLocation} from 'react-router-dom';
 import cn from 'classnames';
-import {AppRoute, AppRouteClass} from '../const';
+import {AppRoute} from '../const';
 import HeaderUser from '../components/header-user/header-user';
 
 function Layout() {
   const { pathname } = useLocation();
-  let className = '';
-  if(pathname === AppRoute.Main) {
-    className = AppRouteClass.Main;
-  }
 
   return (
-    <div className={cn('page', className)}>
+    <div className={cn('page', {'page--gray page--main': pathname === AppRoute.Main})}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

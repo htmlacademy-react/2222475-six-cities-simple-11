@@ -68,7 +68,7 @@ function OfferMap({offer}: OfferMapProps): JSX.Element {
         }
       };
     }
-  }, [map, offersNearby]);
+  }, [map, offersNearby, currentCustomIcon, defaultCustomIcon, offer.location.longitude, offer.location.latitude]);
 
 
   return (

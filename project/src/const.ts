@@ -7,13 +7,6 @@ export enum AppRoute {
   Room = '/offer/:id',
 }
 
-export enum AppRouteClass {
-  Main = 'page--gray page--main',
-  Login = 'page--gray page--login',
-  Room = '',
-  Other = 'page--gray page--login',
-}
-
 export enum NameSpace {
   Offer = 'OFFER',
   User = 'USER',
@@ -85,31 +78,37 @@ export const CITIES: Cities = [
   },
 ];
 
+export const ROOM_TYPE = {
+  house: 'House',
+  apartment: 'Apartment',
+  room: 'Private Room',
+  hotel: 'Hotel',
+};
 
 export enum SortCodes {
   Popular = 'POPULAR',
-  priceToHigh = 'PRICE_TO_HIGH',
-  priceToLow = 'PRICE_TO_LOW',
-  topRated = 'TOP_RATED',
+  PriceToHigh = 'PRICE_TO_HIGH',
+  PriceToLow = 'PRICE_TO_LOW',
+  TopRated = 'TOP_RATED',
 }
 
 export const DEFAULT_SORTING = SortCodes.Popular;
 
-export const SortTypes: Sorts = [
+export const SORT_TYPES: Sorts = [
   {
     code: SortCodes.Popular,
     name: 'Popular',
   },
   {
-    code: SortCodes.priceToHigh,
+    code: SortCodes.PriceToHigh,
     name: 'Price: low to high',
   },
   {
-    code: SortCodes.priceToLow,
+    code: SortCodes.PriceToLow,
     name: 'Price: high to low',
   },
   {
-    code: SortCodes.topRated,
+    code: SortCodes.TopRated,
     name: 'Top rated first',
   },
 ];
