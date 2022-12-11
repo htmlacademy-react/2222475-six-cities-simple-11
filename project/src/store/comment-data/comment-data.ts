@@ -10,7 +10,7 @@ const initialState: CommentsDataType = {
     loading: true
   },
   comment: {
-    rating: 5,
+    rating: 0,
     comment: '',
     posting: false,
   },
@@ -46,7 +46,7 @@ export const commentData = createSlice({
         state.offerComments.items = comments.sort(sortComments);
         state.comment.posting = false;
         state.comment.comment = '';
-        state.comment.rating = 5;
+        state.comment.rating = 0;
       })
       .addCase(sendCommentAction.rejected, (state, action) => {
         state.comment.posting = false;
