@@ -76,7 +76,7 @@ function CommentForm({offerId}: CommentFormProps): JSX.Element {
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button disabled={commentData.comment.length <= 50 || commentData.posting} className="reviews__submit form__submit button" type="submit">Submit</button>
+        <button disabled={commentData.comment.length <= 50 || commentData.rating === 0 || commentData.posting} className="reviews__submit form__submit button" type="submit">Submit</button>
       </div>
     </form>
   );

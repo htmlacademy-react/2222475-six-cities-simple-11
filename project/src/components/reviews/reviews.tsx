@@ -32,12 +32,13 @@ function Reviews({offerId}: ReviewsProps): JSX.Element {
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
       {
-        comments.length &&
-        <ul className="reviews__list">
-          {comments.slice(0, 10).map((comment) => (
-            <Review key={comment.id} comment={comment}/>
-          ))}
-        </ul>
+        comments.length ?
+          <ul className="reviews__list">
+            {comments.slice(0, 10).map((comment) => (
+              <Review key={comment.id} comment={comment}/>
+            ))}
+          </ul>
+          : ''
       }
       {
         currentAuthorizationStatus === AuthorizationStatus.Auth &&

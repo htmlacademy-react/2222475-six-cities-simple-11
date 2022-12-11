@@ -43,48 +43,16 @@ export const offerData = createSlice({
         state.offers.sort = sortCode;
         switch(sortCode) {
           case SortCodes.PriceToHigh:
-            state.offers.items.sort((a, b) => {
-              if (a.price > b.price) {
-                return 1;
-              }
-              if (a.price < b.price) {
-                return -1;
-              }
-              return 0;
-            });
+            state.offers.items.sort((a, b) => a.price - b.price);
             break;
           case SortCodes.PriceToLow:
-            state.offers.items.sort((a, b) => {
-              if (a.price > b.price) {
-                return -1;
-              }
-              if (a.price < b.price) {
-                return 1;
-              }
-              return 0;
-            });
+            state.offers.items.sort((a, b) => b.price - a.price);
             break;
           case SortCodes.TopRated:
-            state.offers.items.sort((a, b) => {
-              if (a.rating > b.rating) {
-                return -1;
-              }
-              if (a.rating < b.rating) {
-                return 1;
-              }
-              return 0;
-            });
+            state.offers.items.sort((a, b) => b.rating - a.rating);
             break;
           default:
-            state.offers.items.sort((a, b) => {
-              if (a.id > b.id) {
-                return 1;
-              }
-              if (a.id < b.id) {
-                return -1;
-              }
-              return 0;
-            });
+            state.offers.items.sort((a, b) => a.id - b.id);
         }
       }
     },
