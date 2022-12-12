@@ -1,13 +1,13 @@
 import {useAppSelector} from '../../hooks';
 import React from 'react';
-import {getCity, getOffersCount} from '../../store/offer-data/selectors';
+import {getCity, getOffers} from '../../store/offer-data/selectors';
 
 function PlacesFound(): JSX.Element {
-  const offersCount = useAppSelector(getOffersCount);
+  const offers = useAppSelector(getOffers);
   const city = useAppSelector(getCity);
 
   return (
-    <b className="places__found">{ `${String(offersCount)} places to stay in ${city.title}` }</b>
+    <b className="places__found">{ `${String(offers.length)} places to stay in ${city.title}` }</b>
   );
 }
 

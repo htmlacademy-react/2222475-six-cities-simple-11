@@ -5,6 +5,7 @@ import {fetchOffersNearbyAction} from '../../store/api-actions';
 import {useAppSelector} from '../../hooks';
 import {getOffersNearby} from '../../store/offer-data/selectors';
 import NearPlace from '../near-place/near-place';
+import {MaxCountLimit} from '../../const';
 
 type NearbyProps = {
   offerId: number;
@@ -29,7 +30,7 @@ function OffersNearby({offerId}: NearbyProps): JSX.Element {
     <section className={cn('near-places', 'places', {'d-none': offers.length})}>
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
-        {offers.slice(0, 3).map((offer) => (
+        {offers.slice(0, MaxCountLimit.OfferNearby).map((offer) => (
           <NearPlace key={offer.id} offer={offer}/>
         ))}
       </div>
