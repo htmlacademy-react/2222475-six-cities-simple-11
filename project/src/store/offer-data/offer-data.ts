@@ -11,7 +11,7 @@ const initialState: OfferDataType = {
     items: [],
     fetched: false,
     loading: true,
-    sort: SortCodes.Popular
+    sort: DEFAULT_SORTING
   },
   offer: {
     data: null,
@@ -41,20 +41,11 @@ export const offerData = createSlice({
       const {sortCode} = action.payload;
       if(sortCode !== state.offers.sort) {
         state.offers.sort = sortCode;
-        switch(sortCode) {
-          case SortCodes.PriceToHigh:
-            state.offers.items.sort((a, b) => a.price - b.price);
-            break;
-          case SortCodes.PriceToLow:
-            state.offers.items.sort((a, b) => b.price - a.price);
-            break;
-          case SortCodes.TopRated:
-            state.offers.items.sort((a, b) => b.rating - a.rating);
-            break;
-          default:
-            state.offers.items.sort((a, b) => a.id - b.id);
-        }
       }
+    },
+    setOfferInitialState: (state) => {
+      state.offer.data = null;
+      state.offer.loading = true;
     },
   },
   extraReducers(builder) {
@@ -64,8 +55,7 @@ export const offerData = createSlice({
         state.offers.sort = DEFAULT_SORTING;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
-        const data = action.payload;
-        state.offers.items = data.filter((offer) => offer.city.name === state.city.title);
+        state.offers.items = action.payload;
         state.offers.fetched = true;
         state.offers.loading = false;
       })
@@ -81,7 +71,6 @@ export const offerData = createSlice({
         state.offer.loading = false;
       })
       .addCase(fetchOfferAction.rejected, (state) => {
-        state.offer.loading = false;
         toast.error('Offer loading error. Try later');
       })
       .addCase(fetchOffersNearbyAction.pending, (state) => {
@@ -95,4 +84,4 @@ export const offerData = createSlice({
   }
 });
 
-export const {changeCity, hoverCard, sortOffers} = offerData.actions;
+export const {changeCity, hoverCard, sortOffers, setOfferInitialState} = offerData.actions;

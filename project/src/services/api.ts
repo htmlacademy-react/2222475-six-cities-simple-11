@@ -1,6 +1,6 @@
 import axios, {AxiosInstance, AxiosError, AxiosRequestConfig} from 'axios';
 import {getToken} from './token';
-import useErrorHandler from '../hooks/use-error-handler/use-error-handler';
+import handlerError from '../hooks/handler-error/handler-error';
 
 const BACKEND_URL = 'https://11.react.pages.academy/six-cities-simple';
 const REQUEST_TIMEOUT = 5000;
@@ -26,7 +26,7 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<{error: string}>) => {
-      useErrorHandler(error);
+      handlerError(error);
       throw error;
     }
   );

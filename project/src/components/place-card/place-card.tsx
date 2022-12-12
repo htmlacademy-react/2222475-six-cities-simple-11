@@ -2,6 +2,7 @@ import {Offer as OfferType} from '../../types/offer';
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks';
 import {hoverCard} from '../../store/offer-data/offer-data';
+import {ROOM_TYPE} from '../../const';
 
 type OfferProps = {
   offer: OfferType;
@@ -11,6 +12,7 @@ function PlaceCard({offer}: OfferProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const ratingPercent: number = Math.round(offer.rating) * 20;
+  const offerType: string = ROOM_TYPE[offer.type as keyof typeof ROOM_TYPE] || '';
 
   return (
     <article className="cities__card place-card" onMouseEnter={() => dispatch(hoverCard({id: offer.id}))} onMouseLeave={() => dispatch(hoverCard({id: 0}))}>
@@ -41,7 +43,7 @@ function PlaceCard({offer}: OfferProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{offerType}</p>
       </div>
     </article>
   );

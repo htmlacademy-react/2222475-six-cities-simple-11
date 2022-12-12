@@ -9,7 +9,7 @@ const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.NOT_FOUND]: true
 };
 
-function useErrorHandler(error: AxiosError<{ error: string }>) {
+function handlerError(error: AxiosError<{ error: string }>) {
   const shouldDisplayError = (response: AxiosResponse) => StatusCodeMapping[response.status];
 
   if (error.response && shouldDisplayError(error.response)) {
@@ -25,4 +25,4 @@ function useErrorHandler(error: AxiosError<{ error: string }>) {
   }
 }
 
-export default useErrorHandler;
+export default handlerError;

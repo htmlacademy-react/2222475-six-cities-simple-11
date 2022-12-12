@@ -6,7 +6,7 @@ import {useAppSelector} from '../../hooks';
 import {getComments} from '../../store/comment-data/selectors';
 import Review from '../review/review';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, MaxCountLimit} from '../../const';
 
 type ReviewsProps = {
   offerId: number;
@@ -34,7 +34,7 @@ function Reviews({offerId}: ReviewsProps): JSX.Element {
       {
         comments.length ?
           <ul className="reviews__list">
-            {comments.slice(0, 10).map((comment) => (
+            {comments.slice(0, MaxCountLimit.Comments).map((comment) => (
               <Review key={comment.id} comment={comment}/>
             ))}
           </ul>

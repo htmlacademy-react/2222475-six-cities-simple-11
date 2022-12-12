@@ -114,3 +114,14 @@ export const SORT_TYPES: Sorts = [
 ];
 
 export const PASSWORD_VALID_ERROR = 'Password must contain at least one letter and one number';
+
+export const enum CommentSize {
+  MinLength = 50,
+  MaxLength = 300,
+}
+
+export const enum MaxCountLimit {
+  OfferImages = 6,
+  Comments = 10,
+  OfferNearby = 3,
+}
